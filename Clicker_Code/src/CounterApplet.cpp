@@ -43,7 +43,8 @@ void CounterApplet::persistIfNeeded(bool forceMilestone) {
         return;
     }
 
-    if (forceMilestone || persistence.shouldPersistPeriodic()) {
+    uint32_t now = millis();
+    if (forceMilestone || persistence.shouldPersist(now)) {
         milestones.getFlags(milestoneFlags);
         persistence.flush(counter, milestoneFlags);
         persistence.clearPeriodicCounter();
@@ -99,7 +100,7 @@ void CounterApplet::handleClick() {
 
     uint32_t now = millis();
     renderer.onClick(now);
-    persistence.onClickRecorded();
+    persistence.onClickRecorded(now);
 
     uint64_t lastCycleComplete = persistence.getLastCycleCompleteLifetime();
     milestones.checkAfterClick(counter, lastCycleComplete);

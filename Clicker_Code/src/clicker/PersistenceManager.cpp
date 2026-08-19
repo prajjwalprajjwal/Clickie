@@ -23,6 +23,8 @@ bool PersistenceManager::load(ClickCounter& counter, uint32_t milestoneFlags[MIL
         lastCycleCompleteLifetime = 0;
         dirty = false;
         clicksSincePersist = 0;
+        lastClickTime = 0;
+        lastPersistTime = millis();
         return false;
     }
 
@@ -49,6 +51,8 @@ bool PersistenceManager::load(ClickCounter& counter, uint32_t milestoneFlags[MIL
 
     dirty = false;
     clicksSincePersist = 0;
+    lastClickTime = 0;
+    lastPersistTime = millis();
     return true;
 }
 
@@ -69,20 +73,38 @@ bool PersistenceManager::save(const ClickCounter& counter, const uint32_t milest
 
     dirty = false;
     clicksSincePersist = 0;
+    lastPersistTime = millis();
     return true;
 }
 
-void PersistenceManager::markDirty() {
+void PersistenceManager::markDirty(uint32_t now) {
     dirty = true;
+    lastClickTime = (now != 0) ? now : millis();
 }
 
-void PersistenceManager::onClickRecorded() {
+void PersistenceManager::onClickRecorded(uint32_t now) {
     clicksSincePersist++;
     dirty = true;
+    lastClickTime = (now != 0) ? now : millis();
 }
 
-bool PersistenceManager::shouldPersistPeriodic() const {
-    return clicksSincePersist >= CLICKER_PERSIST_EVERY_N_CLICKS;
+bool PersistenceManager::shouldPersist(uint32_t now) const {
+    if (!dirty) {
+        return false;
+    }
+    // 1. Debounce inactivity: user stopped clicking for IDLE_DELAY_MS ("counting is done")
+    if ((now - lastClickTime) >= CLICKER_PERSIST_IDLE_DELAY_MS) {
+        return true;
+    }
+    // 2. Periodic clicks during continuous clicking session
+    if (clicksSincePersist >= CLICKER_PERSIST_EVERY_N_CLICKS) {
+        return true;
+    }
+    // 3. Max time elapsed since last persist during continuous clicking
+    if ((now - lastPersistTime) >= CLICKER_PERSIST_MAX_INTERVAL_MS) {
+        return true;
+    }
+    return false;
 }
 
 void PersistenceManager::clearPeriodicCounter() {
