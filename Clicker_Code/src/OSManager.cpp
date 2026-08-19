@@ -3,13 +3,7 @@
 
 extern Adafruit_SSD1306 display;
 
-OSManager::OSManager() {
-    appletCount = 0;
-    currentAppletIndex = 0;
-    currentApplet = nullptr;
-    sleepState = AWAKE;
-    displayOn = true;
-}
+OSManager::OSManager() = default;
 
 void OSManager::init() {
     inputManager.init();
@@ -38,10 +32,6 @@ void OSManager::update() {
 void OSManager::draw() {
     if (sleepState == AWAKE && displayOn && currentApplet) {
         currentApplet->draw();
-    } else if (sleepState != AWAKE) {
-        // Show sleep indicator (optional)
-        // display.clearDisplay();
-        // display.display();
     }
 }
 

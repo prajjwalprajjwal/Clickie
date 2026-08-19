@@ -10,11 +10,7 @@ void ScreenDrawer::drawFullScreen(const uint8_t* data, uint8_t width, uint8_t he
     display.drawBitmap(x, y, data, width, height, SSD1306_WHITE);
 }
 
-void ScreenDrawer::drawCelebration(const CelebrationScreen* screen, uint64_t count, uint32_t nowMs, uint8_t animPhase) {
-    (void)count;
-    (void)nowMs;
-    (void)animPhase;
-
+void ScreenDrawer::drawCelebration(const CelebrationScreen* screen) {
     if (screen == nullptr || screen->data == nullptr) {
         return;
     }

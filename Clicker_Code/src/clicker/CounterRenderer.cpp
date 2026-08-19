@@ -48,14 +48,6 @@ void CounterRenderer::drawCountCentered(uint64_t count) const {
     ThemeFonts::drawCenteredBestFit(&Rajdhani40pt7b, &Rajdhani32pt7b, buffer, 32, 124);
 }
 
-void CounterRenderer::onClick(uint32_t nowMs) {
-    (void)nowMs;
-}
-
-void CounterRenderer::update(uint32_t nowMs) {
-    (void)nowMs;
-}
-
 void CounterRenderer::drawRemaining(uint64_t remaining, uint32_t nowMs) {
     (void)nowMs;
     display.clearDisplay();

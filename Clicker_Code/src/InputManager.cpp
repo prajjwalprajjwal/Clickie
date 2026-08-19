@@ -1,6 +1,6 @@
 #include "InputManager.h"
 
-InputManager::InputManager() {}
+InputManager::InputManager() = default;
 
 void InputManager::init() {
     pinMode(ACTION_BUTTON_PIN, INPUT_PULLUP);

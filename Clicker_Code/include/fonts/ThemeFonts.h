@@ -4,7 +4,6 @@
 #include <Adafruit_GFX.h>
 #include <stdint.h>
 
-#include "fonts/generated/rajdhani10pt7b.h"
 #include "fonts/generated/rajdhani12pt7b.h"
 #include "fonts/generated/rajdhani18pt7b.h"
 #include "fonts/generated/rajdhani24pt7b.h"

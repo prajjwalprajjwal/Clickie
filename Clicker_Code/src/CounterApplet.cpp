@@ -99,7 +99,6 @@ void CounterApplet::handleClick() {
     }
 
     uint32_t now = millis();
-    renderer.onClick(now);
     persistence.onClickRecorded(now);
 
     uint64_t lastCycleComplete = persistence.getLastCycleCompleteLifetime();
@@ -113,7 +112,6 @@ void CounterApplet::handleClick() {
 #if CLICKER_DEBUG
 void CounterApplet::debugSimulateCount(uint64_t target) {
     counter.setLifetimeClicks(target);
-    renderer.onClick(millis());
 
     uint64_t lastCycleComplete = persistence.getLastCycleCompleteLifetime();
     if (target > 0 && (target % CLICKER_CYCLE_LENGTH) == 0) {
@@ -209,7 +207,6 @@ void CounterApplet::init() {
 void CounterApplet::update() {
     uint32_t now = millis();
     presenter.update(now);
-    renderer.update(now);
     persistIfNeeded(false);
 
 #if CLICKER_DEBUG
@@ -252,5 +249,4 @@ void CounterApplet::onModeClick() {
 
 void CounterApplet::onBothHeld() {
     resetAll();
-    renderer.onClick(millis());
 }

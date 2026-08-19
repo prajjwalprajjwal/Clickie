@@ -2,7 +2,7 @@
 #include "InputManager.h"
 #include "Display.h"
 #include "fonts/ThemeFonts.h"
-#include <math.h>
+#include <cmath>
 
 extern Adafruit_SSD1306 display;
 

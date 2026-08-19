@@ -40,5 +40,5 @@ void MilestonePresenter::draw(uint32_t nowMs) {
         return;
     }
 
-    ScreenDrawer::drawCelebration(screen, info.lifetimeClicks, nowMs, 0);
+    ScreenDrawer::drawCelebration(screen);
 }

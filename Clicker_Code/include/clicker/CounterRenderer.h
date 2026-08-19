@@ -10,9 +10,6 @@ private:
     void drawCountCentered(uint64_t count) const;
 
 public:
-    void onClick(uint32_t nowMs);
-    void update(uint32_t nowMs);
-
     bool shouldShowRemaining(uint64_t lifetimeClicks, uint32_t cycleClicks) const;
     uint64_t getRemainingInCycle(uint64_t lifetimeClicks) const;
 
