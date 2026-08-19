@@ -1,0 +1,21 @@
+#ifndef CLICKER_CONFIG_H
+#define CLICKER_CONFIG_H
+
+#ifndef CLICKER_DEBUG
+#define CLICKER_DEBUG 0
+#endif
+
+#define CLICKER_PERSIST_EVERY_N_CLICKS 50
+
+#define CLICKER_NVS_NAMESPACE "clicker"
+#define CLICKER_NVS_KEY_LIFETIME_LO "lifetime_lo"
+#define CLICKER_NVS_KEY_LIFETIME_HI "lifetime_hi"
+#define CLICKER_NVS_KEY_COMPLETED_CYCLES "completed_cycles"
+#define CLICKER_NVS_KEY_MILESTONES "milestones"
+#define CLICKER_NVS_KEY_HOME_UNLOCKS "home_unlocks"
+#define CLICKER_NVS_KEY_LAST_CYCLE "last_cycle_done"
+#define CLICKER_NVS_KEY_LAST_CYCLE_HI "last_cycle_hi"
+
+#define CLICKER_CYCLE_LENGTH 100000ULL
+
+#endif // CLICKER_CONFIG_H
