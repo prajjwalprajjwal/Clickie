@@ -1,7 +1,6 @@
 #ifndef COUNTER_APPLET_H
 #define COUNTER_APPLET_H
 
-#include <Arduino.h>
 #include <stdint.h>
 #include "Applet.h"
 #include "clicker/ClickCounter.h"
@@ -42,8 +41,6 @@ public:
     void onPrepareSleep() override;
 
     void onActionClick() override;
-    void onActionHold() override;
-    void onModeClick() override;
     void onBothHeld() override;
 
     void preloadState();

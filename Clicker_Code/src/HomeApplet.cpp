@@ -1,16 +1,14 @@
 #include "HomeApplet.h"
+#include <Arduino.h>
+#include <cstring>
 #include "Display.h"
-
-extern Adafruit_SSD1306 display;
 
 void HomeApplet::applyUnlockState(uint32_t flags) {
     unlockFlags = flags;
 }
 
 void HomeApplet::initGround() {
-    for (uint8_t x = 0; x < SCREEN_W; x++) {
-        snowDepth[x] = 0;
-    }
+    memset(snowDepth, 0, sizeof(snowDepth));
 }
 
 void HomeApplet::respawnFlake(Snowflake& flake) {
@@ -44,8 +42,7 @@ void HomeApplet::depositSnow(int16_t x) {
     if (x < 0 || x >= SCREEN_W) {
         return;
     }
-    uint8_t total = snowDepth[x];
-    if (total < MAX_SNOW_HEIGHT) {
+    if (snowDepth[x] < MAX_SNOW_HEIGHT) {
         snowDepth[x]++;
     }
 }
@@ -75,25 +72,18 @@ void HomeApplet::updateSnowflakes() {
 void HomeApplet::drawGround() const {
     for (uint8_t x = 0; x < SCREEN_W; x++) {
         uint8_t pile = snowDepth[x];
-        if (pile > MAX_SNOW_HEIGHT) {
-            pile = MAX_SNOW_HEIGHT;
-        }
-        for (uint8_t d = 0; d < pile; d++) {
-            display.drawPixel(x, static_cast<int16_t>(63 - d), SSD1306_WHITE);
+        if (pile > 0) {
+            display.drawFastVLine(x, static_cast<int16_t>(64 - pile), pile, SSD1306_WHITE);
         }
     }
 }
 
 void HomeApplet::drawSnowflakes() const {
-    uint8_t extraFlakes = (unlockFlags & 0x08) ? 8 : 0;
-    const uint8_t count = FLAKE_COUNT + extraFlakes;
-
-    for (uint8_t i = 0; i < count; i++) {
-        const Snowflake& f = flakes[i % FLAKE_COUNT];
-        if (f.y < 0.0f || f.y > 63.0f) {
-            continue;
+    for (uint8_t i = 0; i < FLAKE_COUNT; i++) {
+        const Snowflake& f = flakes[i];
+        if (f.y >= 0.0f && f.y <= 63.0f) {
+            display.drawPixel(static_cast<int16_t>(f.x), static_cast<int16_t>(f.y), SSD1306_WHITE);
         }
-        display.drawPixel(static_cast<int16_t>(f.x), static_cast<int16_t>(f.y), SSD1306_WHITE);
     }
 }
 
@@ -149,19 +139,4 @@ void HomeApplet::draw() {
     drawSnowflakes();
     drawUnlockElements();
     display.display();
-}
-
-void HomeApplet::cleanup() {
-}
-
-void HomeApplet::onActionClick() {
-}
-
-void HomeApplet::onActionHold() {
-}
-
-void HomeApplet::onModeClick() {
-}
-
-void HomeApplet::onBothHeld() {
 }

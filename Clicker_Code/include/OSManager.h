@@ -1,4 +1,4 @@
-﻿#ifndef OS_MANAGER_H
+#ifndef OS_MANAGER_H
 #define OS_MANAGER_H
 
 #include <Arduino.h>
@@ -14,7 +14,8 @@ public:
     };
 
 private:
-    Applet* applets[10];
+    static constexpr uint8_t MAX_APPLETS = 4;
+    Applet* applets[MAX_APPLETS] = {nullptr};
     uint8_t appletCount = 0;
     uint8_t currentAppletIndex = 0;
     Applet* currentApplet = nullptr;
@@ -23,8 +24,8 @@ private:
     // Sleep management
     SleepState sleepState = AWAKE;
     uint32_t lastActivityTime = 0;
-    uint32_t lightSleepTimeout = 20000;    // 20 seconds before light sleep (DEBUG)
-    uint32_t deepSleepTimeout = 45000;     // 45 seconds before deep sleep (DEBUG)
+    uint32_t lightSleepTimeout = 20000;    // 20 seconds before light sleep
+    uint32_t deepSleepTimeout = 45000;     // 45 seconds before deep sleep
     bool displayOn = true;
 
 public:
@@ -44,7 +45,6 @@ public:
     void enterLightSleep();
     void wakeFromLightSleep();
     void enterDeepSleep();
-    void wakeFromDeepSleep();
     SleepState getSleepState() const { return sleepState; }
     bool isDisplayOn() const { return displayOn; }
     void setLightSleepTimeout(uint32_t ms) { lightSleepTimeout = ms; }

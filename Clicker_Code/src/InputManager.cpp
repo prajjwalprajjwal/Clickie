@@ -44,13 +44,11 @@ void InputManager::update() {
     if (modeCurrentlyPressed && !modePressed) {
         modePressed = true;
         modePressedTime = now;
-        modeLongHeldReported = false;
     } else if (!modeCurrentlyPressed && modePressed) {
         modePressed = false;
-        if (!modeLongHeldReported && !bothHeldReported && !actionCurrentlyPressed && onModeClick) {
+        if (!bothHeldReported && !actionCurrentlyPressed && onModeClick) {
             onModeClick();
         }
-        modeLongHeldReported = false;
     }
 
     if (bothCurrentlyPressed && !bothHeldReported &&

@@ -197,8 +197,6 @@ def write_registry(entries: list[tuple[str, str]]) -> None:
         "// Auto-generated — do not edit. Run tools/png_to_oled.py",
         "#ifndef SCREEN_REGISTRY_INC",
         "#define SCREEN_REGISTRY_INC",
-        "",
-        "#include <Arduino.h>",
         "#include <stddef.h>",
         '#include "screens/OledScreen.h"',
         "",

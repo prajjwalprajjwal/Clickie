@@ -16,7 +16,6 @@ private:
     bool actionPressed = false;
     bool modePressed = false;
     bool actionLongHeldReported = false;
-    bool modeLongHeldReported = false;
     bool bothHeldReported = false;
 
 public:

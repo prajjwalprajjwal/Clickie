@@ -1,9 +1,8 @@
 #include "clicker/CounterRenderer.h"
+#include <cstdio>
 #include "clicker/ClickerConfig.h"
 #include "Display.h"
 #include "fonts/ThemeFonts.h"
-
-extern Adafruit_SSD1306 display;
 
 void CounterRenderer::formatCount(uint64_t count, char* buffer, size_t bufferSize) const {
     if (bufferSize == 0) {
@@ -33,8 +32,7 @@ void CounterRenderer::formatCount(uint64_t count, char* buffer, size_t bufferSiz
     }
 }
 
-bool CounterRenderer::shouldShowRemaining(uint64_t lifetimeClicks, uint32_t cycleClicks) const {
-    (void)lifetimeClicks;
+bool CounterRenderer::shouldShowRemaining(uint32_t cycleClicks) const {
     return cycleClicks >= 99000 && cycleClicks < 100000;
 }
 
@@ -48,22 +46,18 @@ void CounterRenderer::drawCountCentered(uint64_t count) const {
     ThemeFonts::drawCenteredBestFit(&Rajdhani40pt7b, &Rajdhani32pt7b, buffer, 32, 124);
 }
 
-void CounterRenderer::drawRemaining(uint64_t remaining, uint32_t nowMs) {
-    (void)nowMs;
+void CounterRenderer::drawRemaining(uint64_t remaining) {
     display.clearDisplay();
     drawCountCentered(remaining);
     display.display();
 }
 
-void CounterRenderer::drawNormal(uint64_t lifetimeClicks, uint32_t cycleClicks, uint32_t cycleNumber, uint32_t nowMs) {
-    (void)cycleNumber;
-
-    if (shouldShowRemaining(lifetimeClicks, cycleClicks)) {
-        drawRemaining(getRemainingInCycle(lifetimeClicks), nowMs);
+void CounterRenderer::drawNormal(uint64_t lifetimeClicks, uint32_t cycleClicks) {
+    if (shouldShowRemaining(cycleClicks)) {
+        drawRemaining(getRemainingInCycle(lifetimeClicks));
         return;
     }
 
-    (void)nowMs;
     display.clearDisplay();
     drawCountCentered(lifetimeClicks);
     display.display();

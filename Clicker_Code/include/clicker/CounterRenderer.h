@@ -1,8 +1,8 @@
 #ifndef COUNTER_RENDERER_H
 #define COUNTER_RENDERER_H
 
-#include <Arduino.h>
 #include <stdint.h>
+#include <stddef.h>
 
 class CounterRenderer {
 private:
@@ -10,11 +10,11 @@ private:
     void drawCountCentered(uint64_t count) const;
 
 public:
-    bool shouldShowRemaining(uint64_t lifetimeClicks, uint32_t cycleClicks) const;
+    bool shouldShowRemaining(uint32_t cycleClicks) const;
     uint64_t getRemainingInCycle(uint64_t lifetimeClicks) const;
 
-    void drawNormal(uint64_t lifetimeClicks, uint32_t cycleClicks, uint32_t cycleNumber, uint32_t nowMs);
-    void drawRemaining(uint64_t remaining, uint32_t nowMs);
+    void drawNormal(uint64_t lifetimeClicks, uint32_t cycleClicks);
+    void drawRemaining(uint64_t remaining);
 };
 
 #endif // COUNTER_RENDERER_H

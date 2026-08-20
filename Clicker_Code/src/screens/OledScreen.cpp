@@ -1,6 +1,5 @@
 #include "screens/OledScreen.h"
-#include <Arduino.h>
-
+#include <stddef.h>
 #include "screens/generated/registry.inc"
 
 const CelebrationScreen* findCelebrationScreen(uint64_t lifetimeClicks) {

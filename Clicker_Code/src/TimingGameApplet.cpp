@@ -1,10 +1,9 @@
 #include "TimingGameApplet.h"
+#include <Arduino.h>
+#include <cmath>
 #include "InputManager.h"
 #include "Display.h"
 #include "fonts/ThemeFonts.h"
-#include <cmath>
-
-extern Adafruit_SSD1306 display;
 
 void TimingGameApplet::init() {
     state = IDLE;
@@ -110,12 +109,6 @@ void TimingGameApplet::onActionClick() {
     if (state == RESULT) {
         state = IDLE;
     }
-}
-
-void TimingGameApplet::onActionHold() {
-}
-
-void TimingGameApplet::onModeClick() {
 }
 
 void TimingGameApplet::onBothHeld() {

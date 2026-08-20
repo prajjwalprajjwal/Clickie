@@ -1,8 +1,6 @@
 #include "fonts/ThemeFonts.h"
 #include "Display.h"
 
-extern Adafruit_SSD1306 display;
-
 void ThemeFonts::set(const GFXfont* font) {
     display.setFont(font);
     display.setTextSize(1);

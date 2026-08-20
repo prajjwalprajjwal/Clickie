@@ -1,7 +1,6 @@
 #ifndef MILESTONE_MANAGER_H
 #define MILESTONE_MANAGER_H
 
-#include <Arduino.h>
 #include <stdint.h>
 #include "clicker/ClickCounter.h"
 #include "clicker/MilestoneTypes.h"

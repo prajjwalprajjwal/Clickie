@@ -1,8 +1,6 @@
 #include "OSManager.h"
 #include "Display.h"
 
-extern Adafruit_SSD1306 display;
-
 OSManager::OSManager() = default;
 
 void OSManager::init() {
@@ -118,19 +116,8 @@ void OSManager::enterDeepSleep() {
     esp_deep_sleep_start();
 }
 
-void OSManager::wakeFromDeepSleep() {
-    sleepState = AWAKE;
-    displayOn = true;
-    recordActivity();
-    
-    // Display turns on when exiting deep sleep
-    display.ssd1306_command(SSD1306_DISPLAYON);
-    
-    Serial.println("[OSManager] Deep sleep: Woken up from deep sleep");
-}
-
 void OSManager::registerApplet(Applet* applet) {
-    if (appletCount < 10) {
+    if (appletCount < MAX_APPLETS) {
         applets[appletCount++] = applet;
     }
 }

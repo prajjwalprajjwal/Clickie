@@ -1,8 +1,8 @@
 #ifndef TIMING_GAME_APPLET_H
 #define TIMING_GAME_APPLET_H
 
-#include <Arduino.h>
 #include <stdint.h>
+#include <stddef.h>
 #include "Applet.h"
 
 class TimingGameApplet : public Applet {
@@ -33,8 +33,6 @@ public:
     void cleanup() override;
 
     void onActionClick() override;
-    void onActionHold() override;
-    void onModeClick() override;
     void onBothHeld() override;
 };
 

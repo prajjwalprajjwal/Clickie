@@ -1,7 +1,6 @@
 #ifndef CLICK_COUNTER_H
 #define CLICK_COUNTER_H
 
-#include <Arduino.h>
 #include <stdint.h>
 #include "clicker/ClickerConfig.h"
 

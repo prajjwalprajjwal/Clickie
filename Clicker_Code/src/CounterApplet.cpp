@@ -215,18 +215,14 @@ void CounterApplet::update() {
 }
 
 void CounterApplet::draw() {
-    uint32_t now = millis();
-
     if (presenter.isActive()) {
-        presenter.draw(now);
+        presenter.draw();
         return;
     }
 
     renderer.drawNormal(
         counter.getLifetimeClicks(),
-        counter.getCycleClicks(),
-        counter.getCurrentCycleNumber(),
-        now);
+        counter.getCycleClicks());
 }
 
 void CounterApplet::cleanup() {
@@ -239,12 +235,6 @@ void CounterApplet::onPrepareSleep() {
 
 void CounterApplet::onActionClick() {
     handleClick();
-}
-
-void CounterApplet::onActionHold() {
-}
-
-void CounterApplet::onModeClick() {
 }
 
 void CounterApplet::onBothHeld() {

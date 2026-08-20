@@ -2,7 +2,6 @@
 #ifndef SCREEN_REGISTRY_INC
 #define SCREEN_REGISTRY_INC
 
-#include <Arduino.h>
 #include <stddef.h>
 #include "screens/OledScreen.h"
 

@@ -1,7 +1,6 @@
 #ifndef MILESTONE_TYPES_H
 #define MILESTONE_TYPES_H
 
-#include <Arduino.h>
 #include <stdint.h>
 
 static const uint32_t MILESTONE_FLAG_WORDS = 8;  // 256 one-time milestone bits

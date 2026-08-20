@@ -1,7 +1,6 @@
 #ifndef HOME_APPLET_H
 #define HOME_APPLET_H
 
-#include <Arduino.h>
 #include <stdint.h>
 #include "Applet.h"
 
@@ -37,12 +36,6 @@ public:
     void init() override;
     void update() override;
     void draw() override;
-    void cleanup() override;
-
-    void onActionClick() override;
-    void onActionHold() override;
-    void onModeClick() override;
-    void onBothHeld() override;
 
     void applyUnlockState(uint32_t unlockFlags);
 };

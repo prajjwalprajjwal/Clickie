@@ -1,8 +1,6 @@
 #include "screens/ScreenDrawer.h"
 #include "Display.h"
 
-extern Adafruit_SSD1306 display;
-
 void ScreenDrawer::drawFullScreen(const uint8_t* data, uint8_t width, uint8_t height, int16_t x, int16_t y) {
     if (data == nullptr) {
         return;
