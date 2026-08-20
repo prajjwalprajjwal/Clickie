@@ -29,7 +29,7 @@ Official open-source firmware for the ESP32-based Clicker device.
 ### 1. Web-Based Browser Flasher (Recommended)
 1. Double-click [`run_flasher.bat`](run_flasher.bat) (or run `python tools/flasher/serve_flasher.py`).
 2. Your browser will automatically open `http://localhost:8080/web_flasher/index.html`.
-3. Connect your ESP32 via USB and click **"Connect & Flash Device"**.
+3. Connect your device via USB and click **"Connect & Flash Device"**.
 
 > [!NOTE]
 > **Post-Flash Reboot**: After flashing completes, if the screen does not turn on immediately, press the **EN / RESET** button on your ESP32 board or unplug/replug the USB cable to exit bootloader download mode.

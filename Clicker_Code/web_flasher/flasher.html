@@ -98,20 +98,18 @@
 
     .flasher-title {
       font-family: var(--click-font-display);
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      line-height: 1.1;
-      background: linear-gradient(135deg, #ffffff 40%, var(--click-cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.65rem;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
     }
 
     .flasher-subtitle {
       font-size: 1.05rem;
       color: var(--click-text-secondary);
-      max-width: 580px;
+      max-width: 600px;
       margin: 0 auto;
     }
 
@@ -611,11 +609,11 @@
         <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.85rem 1rem;margin-bottom:1.25rem;font-size:0.82rem;">
           <div style="font-weight:600;color:#fff;margin-bottom:0.35rem;display:flex;align-items:center;gap:0.4rem;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <span>Interactive Installation Options</span>
+            <span>Installation Options</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:0.35rem;color:var(--click-text-secondary);">
-            <div><strong style="color:var(--click-emerald);">Option A &bull; Update (Keep Data):</strong> Keep "Erase device" <em>unchecked</em> in the popup to preserve your stored click counts and milestone stats.</div>
-            <div><strong style="color:var(--click-amber);">Option B &bull; Clean Install (Erase):</strong> Check "Erase device" to reset to factory defaults and wipe NVS storage.</div>
+            <div><strong style="color:var(--click-emerald);">Option A: Standard Update (Preserve Stats)</strong><br>Flashes application binary at offset 0x10000. Preserves all stored click counts and local settings in NVS.</div>
+            <div><strong style="color:var(--click-amber);">Option B: Factory Reset (Clean Install)</strong><br>Performs full chip erase and writes complete image at offset 0x0. Resets device memory to factory state.</div>
           </div>
         </div>
 
@@ -703,17 +701,9 @@
         For browsers without Web Serial (Firefox, Safari, iOS), use one of the supported methods below:
       </p>
 
-      <!-- Prominent Data Loss Warning Banner -->
-      <div style="background:rgba(244,63,94,0.08);border:1.5px solid rgba(244,63,94,0.4);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
-        <h4 style="color:var(--click-rose);font-family:var(--click-font-display);font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;">
-          ⚠️ DATA LOSS WARNING: Third-Party Web Flashers
-        </h4>
-        <p style="color:var(--click-text-secondary);font-size:0.86rem;line-height:1.45;margin-bottom:0.4rem;">
-          Third-party web tools like <strong>web.esphome.io</strong> execute an automatic full chip erase that <strong>COMPLETELY WIPES ALL SAVED DATA</strong> (click counts, milestones, and settings in NVS).
-        </p>
-        <p style="color:#fff;font-size:0.84rem;font-weight:500;">
-          👉 To update safely without losing stats, use the <strong>Official Web Installer above</strong> (Chrome/Edge) or run <strong><code>.\flash_device.bat</code></strong> from our repository.
-        </p>
+      <!-- Third-Party Notice Box -->
+      <div style="background:rgba(248,81,73,0.06);border:1px solid rgba(248,81,73,0.3);border-radius:10px;padding:0.9rem 1.1rem;margin-bottom:1.5rem;font-size:0.84rem;line-height:1.5;color:var(--click-text-secondary);">
+        <strong style="color:#f85149;">Notice:</strong> Flashing via external utilities (e.g., esphome.io) or running <code>esptool.py erase_flash</code> will erase the <code>0x9000</code> NVS partition and clear device memory. Use this installer or <code>flash_device.bat</code> to maintain local stats.
       </div>
 
       <div class="fallback-grid">

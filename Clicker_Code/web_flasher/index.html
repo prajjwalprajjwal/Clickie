@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clicker ESP32 - Web Firmware Installer</title>
-  <meta name="description" content="Official web-based firmware installer and updater for the Clicker ESP32 device using Web Serial and ESP Web Tools. Safe updates with zero data loss.">
-  
-  <!-- Fonts: Rajdhani & Inter -->
+  <title>Clicker Firmware Flasher</title>
+  <meta name="description" content="Official web installation utility for Clicker keyring hardware.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
-  
+
   <!-- ESP Web Tools -->
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 </head>
+
 <body>
 
   <div class="container">
@@ -23,85 +26,61 @@
     <header class="header">
       <div class="brand-badge">
         <span class="pulse-dot"></span>
-        <span>ESP32 FIRMWARE UPDATER</span>
+        <span>Official Web Installer</span>
       </div>
-      <h1 class="title">Clicker Device Installer</h1>
-      <p class="subtitle">Update and flash your Clicker hardware directly from your browser over USB using Web Serial.</p>
+      <h1 class="title">Clicker Firmware Flasher</h1>
+      <p class="subtitle">....</p>
     </header>
 
-    <!-- NVS Data Preservation Alert -->
-    <section class="nvs-banner" aria-label="Data Preservation Guarantee">
-      <div class="nvs-banner-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          <polyline points="9 12 11 14 15 10"></polyline>
-        </svg>
-      </div>
-      <div class="nvs-banner-text">
-        <h4>100% NVS Data Preserved</h4>
-        <p>Firmware updates target application offset <code>0x10000</code> with chip-erase strictly disabled. Your lifetime clicks, unlock milestones, and stats stored in NVS (<code>0x9000</code>) remain untouched.</p>
-      </div>
-    </section>
-
-    <!-- Main Installer Grid -->
+    <!-- Main Grid -->
     <main class="main-grid">
-      <!-- Flash Card -->
+      <!-- Left Column: Firmware Installation -->
       <section class="card" id="installer-card">
-        <div class="card-header">
-          <h2 class="card-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-            </svg>
-            <span>Web Serial Flash</span>
-          </h2>
-          <span style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono);">USB DIRECT</span>
-        </div>
-
-        <!-- Browser Compatibility Badge -->
-        <div id="browser-status" class="browser-status supported">
-          <!-- Filled dynamically by app.js -->
-        </div>
-
-        <!-- Version Selector -->
-        <div class="form-group">
-          <label for="version-select" class="form-label">Select Firmware Version</label>
-          <div class="select-wrapper">
-            <select id="version-select" class="select-custom" aria-label="Select Firmware Version">
-              <option value="v1.0.0">v1.0.0 (Latest Stable)</option>
-            </select>
-            <div class="select-arrow">
+        <div>
+          <div class="card-header">
+            <h2 class="card-title">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
               </svg>
+              <span>Firmware Installation</span>
+            </h2>
+            <span class="card-tag">Web Serial Direct</span>
+          </div>
+
+          <!-- Browser Status -->
+          <div id="browser-status" class="browser-status supported">
+            <!-- Populated by app.js -->
+          </div>
+
+          <!-- Version Selector -->
+          <div class="form-group">
+            <label for="version-select" class="form-label">Release Version</label>
+            <div class="select-wrapper">
+              <select id="version-select" class="select-custom" aria-label="Select Firmware Release">
+                <option value="v1.0.0">v1.0.0</option>
+              </select>
+              <div class="select-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Version Metadata Summary -->
-        <div class="version-meta">
-          <div class="meta-box">
-            <div class="meta-label">Version</div>
-            <div id="meta-version" class="meta-value">v1.0.0</div>
-          </div>
-          <div class="meta-box">
-            <div class="meta-label">Flash Offset</div>
-            <div id="meta-offset" class="meta-value" style="font-family:var(--font-mono);font-size:0.95rem;">0x10000</div>
-          </div>
-          <div class="meta-box">
-            <div class="meta-label">Binary Size</div>
-            <div id="meta-size" class="meta-value">~360 KB</div>
-          </div>
-        </div>
-
-        <!-- Installation Choices Explainer -->
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.9rem 1rem;margin-bottom:1.25rem;font-size:0.85rem;">
-          <div style="font-weight:600;color:#fff;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <span>Interactive Installation Options</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:0.4rem;color:var(--text-secondary);">
-            <div><strong style="color:var(--accent-emerald);">Option A &bull; Update (Keep Data):</strong> Leave "Erase device" <em>unchecked</em> in the popup to preserve all lifetime clicks, milestones, and statistics.</div>
-            <div><strong style="color:var(--accent-amber);">Option B &bull; Clean Install (Erase):</strong> Check "Erase device" in the popup to factory reset the hardware and format all NVS storage.</div>
+          <!-- Version Metadata -->
+          <div class="version-meta">
+            <div class="meta-box">
+              <div class="meta-label">Selected Target</div>
+              <div id="meta-version" class="meta-value">v1.0.0</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-label">App Partition</div>
+              <div id="meta-offset" class="meta-value">0x10000</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-label">Binary Size</div>
+              <div id="meta-size" class="meta-value">~360 KB</div>
+            </div>
           </div>
         </div>
 
@@ -109,207 +88,213 @@
         <div class="flasher-action">
           <esp-web-install-button id="esp-install-btn" manifest="manifest.json">
             <button slot="activate" class="btn-primary" id="activate-install-btn">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="12"></line>
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
               </svg>
-              <span>Connect & Flash Device</span>
+              <span>Connect & Flash Clicker</span>
             </button>
-            <div slot="unsupported" style="padding:1rem;background:rgba(245,158,11,0.1);border-radius:8px;color:var(--accent-amber);font-size:0.9rem;text-align:center;">
-              Web Serial is not supported on this browser. Please open this page in Chrome, Edge, or Brave, or see the manual options below.
+            <div slot="unsupported"
+              style="padding:0.75rem;background:rgba(245,158,11,0.08);border-radius:6px;color:var(--accent-amber);font-size:0.82rem;text-align:center;">
+              Web Serial is not supported on this browser. Use Chrome, Edge, Brave, or see manual options below.
             </div>
-            <div slot="not-allowed" style="padding:1rem;background:rgba(244,63,94,0.1);border-radius:8px;color:var(--accent-rose);font-size:0.9rem;text-align:center;">
+            <div slot="not-allowed"
+              style="padding:0.75rem;background:rgba(244,63,94,0.08);border-radius:6px;color:var(--accent-rose);font-size:0.82rem;text-align:center;">
               Web Serial requires a secure context (HTTPS) or localhost.
             </div>
           </esp-web-install-button>
         </div>
       </section>
 
-      <!-- Quick Start Guide -->
+      <!-- Right Column: Device Instructions & Flashing Modes -->
       <aside class="card" id="guide-card">
-        <div class="card-header">
-          <h2 class="card-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            <span>How to Update</span>
-          </h2>
-          <span style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono);">GUIDE</span>
+        <div>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Instructions & Modes</span>
+            </h2>
+            <span class="card-tag">Hardware</span>
+          </div>
+
+          <!-- Flashing Modes Box -->
+          <div class="options-box">
+            <div class="options-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Flashing Modes</span>
+            </div>
+            <div class="options-list">
+              <div>
+                <strong style="color:#fafafa;">Standard Update (Keep Stats):</strong> Targets <code>0x10000</code>. Preserves all click counts and NVS settings. (Leave "Erase device" <em>unchecked</em>).
+              </div>
+              <div>
+                <strong style="color:var(--accent-amber);">Factory Reset:</strong> Wipes device flash and re-initializes memory. (Check "Erase device" in modal).
+              </div>
+            </div>
+          </div>
+
+          <!-- Step-by-Step Instructions -->
+          <ul class="steps-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h5>Connect Device</h5>
+                <p>Connect Clicker to your computer via USB-C cable.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h5>Select Port</h5>
+                <p>Click "Connect & Flash Clicker" and choose the device serial connection.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h5>Flash & Restart</h5>
+                <p>The flasher installs the firmware. The OLED display will restart automatically.</p>
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <ul class="steps-list">
-          <li class="step-item">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <h5>Connect Device via USB</h5>
-              <p>Use a standard USB data cable connected to your computer and the ESP32 Clicker board.</p>
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <h5>Select Port</h5>
-              <p>Click "Connect & Flash Device" and choose your ESP32's COM / serial port from the popup list.</p>
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <h5>Automatic Flash</h5>
-              <p>The installer writes the update to <code>0x10000</code>. Your device restarts automatically with all saved clicks intact.</p>
-            </div>
-          </li>
-        </ul>
-
-        <div style="margin-top:1.5rem;padding:0.85rem;border-radius:8px;background:rgba(0,240,255,0.05);border:1px solid rgba(0,240,255,0.2);font-size:0.82rem;color:var(--text-secondary);">
-          <strong style="color:var(--accent-cyan);">Troubleshooting Tip:</strong> If connection times out, hold down the <strong>BOOT</strong> button on the ESP32 while clicking Connect, then release it once flashing starts.
+        <div class="tip-box">
+          <strong>Hardware Note:</strong> If initialization times out, unplug the device and plug it in again.
         </div>
       </aside>
     </main>
 
-    <!-- Fallbacks & Manual Flashing Section -->
-    <section id="manual-section" style="margin-top:2rem;">
+    <!-- Alternative Flashing & Browser Options Section -->
+    <section id="manual-section">
       <h2 class="section-title">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
           <line x1="8" y1="21" x2="16" y2="21"></line>
           <line x1="12" y1="17" x2="12" y2="21"></line>
         </svg>
-        <span>Firefox, Safari & Manual Options</span>
+        <span>Alternative Flashing & Browser Options</span>
       </h2>
-      <p class="section-desc">If your browser does not support the Web Serial API (e.g. Safari, Firefox, iOS), choose one of the reliable alternatives below:</p>
+      <p class="section-desc">
+        For browsers without Web Serial API support (Firefox, Safari, iOS) or manual command-line workflows:
+      </p>
 
-      <!-- Prominent Third-Party Data Loss Warning Banner -->
-      <div style="background:rgba(244,63,94,0.08);border:1.5px solid rgba(244,63,94,0.4);border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:1.5rem;">
+      <!-- Prominent Data Loss Warning Box -->
+      <div style="background:rgba(239, 68, 68, 0.05);border:1px solid rgba(239, 68, 68, 0.4);border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:1.5rem;">
         <div style="display:flex;align-items:flex-start;gap:0.75rem;">
-          <div style="color:var(--accent-rose);flex-shrink:0;margin-top:2px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <div style="color:#f87171;flex-shrink:0;margin-top:2px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
               <line x1="12" y1="9" x2="12" y2="13"></line>
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
           </div>
           <div>
-            <h4 style="color:var(--accent-rose);font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:0.35rem;">
+            <h4 style="color:#f87171;font-size:0.95rem;font-weight:700;margin-bottom:0.35rem;letter-spacing:-0.01em;">
               ⚠️ DATA LOSS WARNING: Third-Party Web Flashers
             </h4>
-            <p style="color:var(--text-secondary);font-size:0.88rem;line-height:1.5;margin-bottom:0.5rem;">
-              Third-party web tools like <strong>web.esphome.io</strong> perform an automatic full-chip erase that <strong>COMPLETELY WIPES ALL SAVED DATA</strong> (click counts, cycles, milestones, and settings in NVS memory).
+            <p style="color:var(--text-secondary);font-size:0.82rem;line-height:1.5;margin-bottom:0.5rem;">
+              Third-party web tools like <strong>web.esphome.io</strong> run an automatic full-chip erase that <strong>COMPLETELY WIPES ALL SAVED DATA</strong> (click counts, milestones, and NVS settings).
             </p>
-            <p style="color:#fff;font-size:0.86rem;font-weight:500;">
-              👉 To update your device without losing your saved stats, use the <strong>Official Web Installer above</strong> (in Chrome/Edge) or run <strong><code>.\flash_device.bat</code></strong> from our repository.
+            <p style="color:#fafafa;font-size:0.82rem;font-weight:500;">
+              👉 To update without losing saved stats, use this <strong>Official Web Installer in Chrome/Edge</strong>, or run <strong><code>.\flash_device.bat</code></strong> from the repo.
             </p>
           </div>
         </div>
       </div>
 
+      <!-- Three-Column Option Cards -->
       <div class="fallback-grid">
-        <!-- Option 1: Chrome / Edge recommendation -->
+        <!-- Option 1: Supported Browsers -->
         <div class="fallback-card">
           <div>
             <div class="fallback-card-header">
-              <div class="fallback-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <circle cx="12" cy="12" r="4"></circle>
-                  <line x1="21.17" y1="8" x2="12" y2="8"></line>
-                  <line x1="3.95" y1="6.06" x2="8.54" y2="14"></line>
-                  <line x1="10.88" y1="21.94" x2="15.46" y2="14"></line>
-                </svg>
-              </div>
-              <h4>Option 1: Switch Browser (Safe)</h4>
+              <h4>Option 1: Supported Browsers</h4>
             </div>
             <div class="fallback-body">
-              <p>For one-click web updates with full data preservation, open this page in <strong>Google Chrome</strong>, <strong>Microsoft Edge</strong>, <strong>Brave</strong>, or <strong>Opera</strong>.</p>
+              <p>Use <strong>Google Chrome</strong>, <strong>Microsoft Edge</strong>, <strong>Brave</strong>, or <strong>Opera</strong> for direct web installation with 100% data preservation.</p>
             </div>
           </div>
-          <div style="font-size:0.8rem;color:var(--accent-emerald);">Recommended &bull; Keeps All Click Stats</div>
+          <span style="font-size:0.75rem;color:var(--accent-emerald);font-family:var(--font-mono);font-weight:600;">Maintains All Stats</span>
         </div>
 
-        <!-- Option 2: ESPHome Web Flasher -->
+        <!-- Option 2: web.esphome.io Recovery -->
         <div class="fallback-card">
           <div>
             <div class="fallback-card-header">
-              <div class="fallback-icon" style="color:var(--accent-rose);background:rgba(244,63,94,0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </div>
-              <h4>Option 2: web.esphome.io (Wipes Data)</h4>
+              <h4>Option 2: web.esphome.io (Recovery)</h4>
             </div>
             <div class="fallback-body">
-              <p><strong style="color:var(--accent-rose);">Notice:</strong> web.esphome.io will erase all user stats. Use only for full factory reset or recovery:</p>
-              <ol style="margin-left:1.2rem;font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.75rem;">
-                <li>Download <code>factory_firmware.bin</code> below (Offset: <code>0x0</code>).</li>
-                <li>Go to <a href="https://web.esphome.io" target="_blank" rel="noopener" style="color:var(--accent-cyan);">web.esphome.io</a>.</li>
-                <li>Click <strong>Install</strong> &rarr; Select <code>factory_firmware.bin</code>.</li>
+              <p>For full chip erases or device recovery:</p>
+              <ol style="margin-left:1.15rem;font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.65rem;line-height:1.45;">
+                <li>Download <code>factory_firmware.bin</code> (Offset <code>0x0</code>).</li>
+                <li>Open <a href="https://web.esphome.io" target="_blank" rel="noopener" style="color:var(--text-primary);text-decoration:underline;">web.esphome.io</a>.</li>
+                <li>Flash <code>factory_firmware.bin</code>.</li>
               </ol>
             </div>
           </div>
-          <a href="https://web.esphome.io" target="_blank" rel="noopener" class="btn-download" style="text-align:center;justify-content:center;border-color:rgba(244,63,94,0.3);color:var(--accent-rose);">Open web.esphome.io (Full Erase) &rarr;</a>
+          <a href="https://web.esphome.io" target="_blank" rel="noopener" class="btn-download" style="justify-content:center;color:#f87171;border-color:rgba(239,68,68,0.35);">Open web.esphome.io (Full Erase) &rarr;</a>
         </div>
 
-        <!-- Option 3: esptool.py Command Line -->
+        <!-- Option 3: Desktop CLI / esptool.py -->
         <div class="fallback-card">
           <div>
             <div class="fallback-card-header">
-              <div class="fallback-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="4 17 10 11 4 5"></polyline>
-                  <line x1="12" y1="19" x2="20" y2="19"></line>
-                </svg>
-              </div>
-              <h4>Option 3: esptool.py (Desktop CLI)</h4>
+              <h4>Option 3: Desktop CLI / esptool.py</h4>
             </div>
             <div class="fallback-body">
-              <p>Flash the merged factory image directly to offset <strong>0x0</strong>:</p>
+              <p>Flash the merged binary to offset <code>0x0</code>:</p>
               <div class="code-box">
                 <button class="btn-copy" data-target="cli-code-snippet" aria-label="Copy Command">Copy</button>
                 <pre id="cli-code-snippet">esptool.py --chip esp32 --port COMx write_flash 0x0 factory_firmware.bin</pre>
               </div>
             </div>
           </div>
-          <div style="font-size:0.78rem;color:var(--accent-emerald);">Or run <code>flash_device.bat</code> in the repository for interactive data preservation.</div>
+          <span style="font-size:0.75rem;color:var(--text-secondary);font-family:var(--font-mono);">Or run <code>.\flash_device.bat</code> in the repository.</span>
         </div>
       </div>
 
-      <!-- Binary Difference & Data Safety Notice -->
-      <div style="background:rgba(0,240,255,0.04);border:1px solid rgba(0,240,255,0.2);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:0.86rem;">
-        <h4 style="color:var(--accent-cyan);font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.45rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      <!-- Manual Binary Reference Card -->
+      <div style="background:var(--bg-card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:1.15rem 1.35rem;margin-bottom:2rem;font-size:0.84rem;">
+        <h4 style="color:#ffffff;font-size:0.95rem;font-weight:600;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.45rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
           <span>Understanding Manual Binary Files & Data Safety</span>
         </h4>
-        <ul style="margin-left:1.25rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:0.35rem;">
-          <li><strong style="color:var(--accent-emerald);">factory_firmware.bin (Flash Offset: 0x0)</strong> &bull; Complete merged image containing bootloader, partitions, and firmware. Required for third-party flashers (web.esphome.io) or recovering a non-booting board.</li>
-          <li><strong style="color:var(--accent-cyan);">firmware.bin (Flash Offset: 0x10000)</strong> &bull; Application-only update. Flashing to <code>0x10000</code> without running <code>erase_flash</code> guarantees your lifetime clicks and milestone stats in NVS (<code>0x9000</code>) remain 100% intact.</li>
-          <li><strong style="color:#fff;">Recommended Desktop CLI Tool:</strong> Run <code>.\flash_device.bat</code> in the repository to interactively choose between keeping your data or doing a clean factory reset.</li>
+        <ul style="margin-left:1.25rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:0.45rem;line-height:1.45;">
+          <li><strong style="color:#ffffff;font-family:var(--font-mono);">factory_firmware.bin (Offset: 0x0)</strong> &bull; Complete merged image (bootloader, partitions, app). Required for third-party flashers or full recovery. Wipes NVS data.</li>
+          <li><strong style="color:var(--accent-emerald);font-family:var(--font-mono);">firmware.bin (Offset: 0x10000)</strong> &bull; App-only update. Flashing to <code>0x10000</code> without running <code>erase_flash</code> preserves all NVS stats.</li>
+          <li><strong style="color:var(--accent-blue);font-family:var(--font-mono);">flash_device.bat</strong> &bull; Recommended desktop CLI script that interactively prompts you to keep data or factory reset.</li>
         </ul>
       </div>
 
       <!-- Release History / Direct Downloads Table -->
-      <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:0.4rem;color:#fff;">
-        Direct Factory Firmware Downloads (Offset 0x0)
+      <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:0.35rem;color:var(--text-primary);">
+        Direct Release Binaries
       </h3>
-      <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem;">
-        Download Factory Binary (<code>factory_firmware.bin</code>) for manual flashing via web.esphome.io or esptool (Flash Offset: <code>0x0</code>).
+      <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">
+        Download compiled binaries for manual deployment or offline storage.
       </p>
       <div class="releases-table-wrapper">
         <table class="releases-table">
           <thead>
             <tr>
-              <th>Release Version</th>
-              <th>Flash Target</th>
-              <th>Binary Size</th>
-              <th style="text-align:right;">Action</th>
+              <th>Release Tag</th>
+              <th>Offset</th>
+              <th>Image Size</th>
+              <th style="text-align:right;">Binary File</th>
             </tr>
           </thead>
           <tbody id="releases-tbody">
-            <!-- Rendered by app.js -->
+            <!-- Rendered dynamically by app.js -->
           </tbody>
         </table>
       </div>
@@ -317,10 +302,11 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>Clicker ESP32 Project &bull; Open Source Firmware &bull; Built with ESP Web Tools</p>
+      <p>Clicker &bull; Hardware Firmware Utility</p>
     </footer>
   </div>
 
   <script src="app.js"></script>
 </body>
+
 </html>

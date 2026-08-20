@@ -1,16 +1,16 @@
 // Clicker ESP32 Web Flasher Controller
 
 const DEFAULT_RELEASES = [
-  { 
-    tag: "v1.0.0", 
-    version: "1.0.0", 
-    name: "Clicker Device Firmware", 
-    manifest: "manifest.json", 
-    bin: "firmware.bin", 
+  {
+    tag: "v1.0.0",
+    version: "1.0.0",
+    name: "Clicker Device Firmware",
+    manifest: "manifest.json",
+    bin: "firmware.bin",
     factory_bin: "factory_firmware.bin",
-    size: 360512, 
+    size: 360512,
     factory_size: 426048,
-    is_latest: true 
+    is_latest: true
   }
 ];
 
@@ -34,11 +34,11 @@ function checkBrowserCompatibility() {
   if (isSerialSupported && isHttpsOrLocal) {
     statusEl.className = 'browser-status supported';
     statusEl.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
         <polyline points="22 4 12 14.01 9 11.01"></polyline>
       </svg>
-      <span><strong>Web Serial Ready:</strong> Connect your ESP32 via USB and click below to flash.</span>
+      <span><strong>Web Serial Ready:</strong> Connect the device via USB-C and click below to flash.</span>
     `;
   } else if (!isSerialSupported) {
     statusEl.className = 'browser-status unsupported';
@@ -161,7 +161,7 @@ function initVersionSelector() {
 
 function updateSelectedVersion(tag) {
   const rel = availableReleases.find(r => r.tag === tag) || availableReleases[0];
-  
+
   // Update Meta labels
   const metaVer = document.getElementById('meta-version');
   const metaOffset = document.getElementById('meta-offset');
