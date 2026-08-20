@@ -5,7 +5,7 @@ An open-source, low-power ESP32 keyring device featuring a minimalist, personali
 ---
 
 ## Repository Architecture
-
+```
 ├── Artworks/               # Visual design, pixel graphics, and product assets
 │   ├── Exports/            # Rendered image exports (PNG/BMP) for OLED display conversion
 │   └── PIXEL SCREENS.ai   # Master Adobe Illustrator source file for display graphics
@@ -21,7 +21,7 @@ An open-source, low-power ESP32 keyring device featuring a minimalist, personali
     ├── build_release.bat   # Interactive release manager (semantic version bumping)
     ├── flash_device.bat    # Interactive CLI flasher with NVS data preservation options
     └── platformio.ini      # PlatformIO configuration and board settings
-
+```
 ---
 
 ## Subdirectory Breakdown
